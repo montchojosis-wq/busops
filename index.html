@@ -432,75 +432,6 @@
           </button>
         </div>
         <div style="margin:.875rem 0 0">
-          <p style="font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(180,165,215,.5);text-align:center;margin:0 0 .625rem">Comptes de démonstration</p>
-          <div style="display:flex;flex-direction:column;gap:.35rem">
-
-            <!-- Patron -->
-            <button type="button" onclick="loginDemo('demo@busops.bj','demo1234','🏢 Patron')"
-              style="display:flex;align-items:center;gap:.75rem;width:100%;padding:.55rem .875rem;border-radius:.625rem;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);cursor:pointer;transition:all .15s;text-align:left"
-              onmouseenter="this.style.background='rgba(124,84,222,.2)';this.style.borderColor='rgba(124,84,222,.5)'"
-              onmouseleave="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.1)'">
-              <span style="font-size:1.1rem;flex-shrink:0">🏢</span>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:.8rem;font-weight:700;color:#fff;line-height:1.2">Patron</div>
-                <div style="font-size:.7rem;color:rgba(180,165,215,.55);margin-top:.05rem">demo@busops.bj · demo1234</div>
-              </div>
-              <span style="font-size:.65rem;color:rgba(124,84,222,.8);font-weight:700;background:rgba(124,84,222,.15);padding:.2rem .5rem;border-radius:.375rem;flex-shrink:0">Back-office</span>
-            </button>
-
-            <!-- Guichetier -->
-            <button type="button" onclick="loginDemo('guichetier@busops.bj','demo1234','🎫 Guichetier')"
-              style="display:flex;align-items:center;gap:.75rem;width:100%;padding:.55rem .875rem;border-radius:.625rem;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);cursor:pointer;transition:all .15s;text-align:left"
-              onmouseenter="this.style.background='rgba(124,84,222,.2)';this.style.borderColor='rgba(124,84,222,.5)'"
-              onmouseleave="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.1)'">
-              <span style="font-size:1.1rem;flex-shrink:0">🎫</span>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:.8rem;font-weight:700;color:#fff;line-height:1.2">Guichetier</div>
-                <div style="font-size:.7rem;color:rgba(180,165,215,.55);margin-top:.05rem">guichetier@busops.bj · demo1234</div>
-              </div>
-              <span style="font-size:.65rem;color:rgba(34,197,94,.8);font-weight:700;background:rgba(34,197,94,.12);padding:.2rem .5rem;border-radius:.375rem;flex-shrink:0">Guichet 1</span>
-            </button>
-
-            <!-- Convoyeur -->
-            <button type="button" onclick="loginDemo('convoyeur@busops.bj','demo1234','🚌 Convoyeur')"
-              style="display:flex;align-items:center;gap:.75rem;width:100%;padding:.55rem .875rem;border-radius:.625rem;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);cursor:pointer;transition:all .15s;text-align:left"
-              onmouseenter="this.style.background='rgba(124,84,222,.2)';this.style.borderColor='rgba(124,84,222,.5)'"
-              onmouseleave="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.1)'">
-              <span style="font-size:1.1rem;flex-shrink:0">🚌</span>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:.8rem;font-weight:700;color:#fff;line-height:1.2">Convoyeur</div>
-                <div style="font-size:.7rem;color:rgba(180,165,215,.55);margin-top:.05rem">convoyeur@busops.bj · demo1234</div>
-              </div>
-              <span style="font-size:.65rem;color:rgba(249,115,22,.8);font-weight:700;background:rgba(249,115,22,.12);padding:.2rem .5rem;border-radius:.375rem;flex-shrink:0">Convoyeur 1</span>
-            </button>
-
-                      <!-- Client -->
-            <button type="button" onclick="loginDemo('client@busops.bj','demo1234','👤 Client')"
-              style="display:flex;align-items:center;gap:.75rem;width:100%;padding:.55rem .875rem;border-radius:.625rem;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);cursor:pointer;transition:all .15s;text-align:left"
-              onmouseenter="this.style.background='rgba(124,84,222,.2)';this.style.borderColor='rgba(124,84,222,.5)'"
-              onmouseleave="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.1)'">
-              <span style="font-size:1.1rem;flex-shrink:0">👤</span>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:.8rem;font-weight:700;color:#fff;line-height:1.2">Client</div>
-                <div style="font-size:.7rem;color:rgba(180,165,215,.55);margin-top:.05rem">client@busops.bj · demo1234</div>
-              </div>
-              <span style="font-size:.65rem;color:rgba(34,197,94,.8);font-weight:700;background:rgba(34,197,94,.12);padding:.2rem .5rem;border-radius:.375rem;flex-shrink:0">Espace client</span>
-            </button>
-
-          </div>
-          <!-- Super Admin — discret, en bas -->
-          <div style="margin-top:.875rem;padding-top:.875rem;border-top:1px solid rgba(255,255,255,.08)">
-            <button type="button" onclick="loginDemo('superadmin@busops.bj','busops2026','')"
-              style="display:flex;align-items:center;gap:.5rem;width:100%;padding:.5rem .75rem;border-radius:.625rem;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);cursor:pointer;opacity:.55;transition:all .15s;text-align:left"
-              onmouseenter="this.style.opacity='1';this.style.borderColor='rgba(239,68,68,.4)';this.style.background='rgba(239,68,68,.08)'"
-              onmouseleave="this.style.opacity='.55';this.style.borderColor='rgba(255,255,255,.07)';this.style.background='rgba(255,255,255,.04)'">
-              <span style="font-size:.9rem">🛡️</span>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:.72rem;font-weight:700;color:rgba(239,68,68,.8);line-height:1.2">BusOps Admin</div>
-                <div style="font-size:.65rem;color:rgba(180,165,215,.35);margin-top:.05rem">superadmin@busops.bj · busops2026</div>
-              </div>
-            </button>
-          </div>
         </div>
       </div>
 
@@ -888,6 +819,297 @@
 <!-- ═══ Modal Ajouter une personne ═══ -->
 <script>
 
+// ══ SUPABASE — COUCHE DE DONNÉES BUSOPS ════════════════════════════════════
+// Remplace progressivement localStorage par Supabase.
+// Fonctionne en mode hybride : Supabase si configuré, localStorage en fallback.
+
+// ── CONFIGURATION — À remplir avec tes identifiants Supabase ─────────────
+var SUPABASE_URL = 'VOTRE_SUPABASE_URL';       // ex: https://abcxyz.supabase.co
+var SUPABASE_ANON_KEY = 'VOTRE_SUPABASE_KEY'; // ex: eyJhbGciO...
+
+var _sb = null;  // instance Supabase
+var _sbReady = false;
+var _sbUser = null;  // utilisateur authentifié Supabase
+
+// ── Initialisation ────────────────────────────────────────────────────────
+function _initSupabase() {
+  if (SUPABASE_URL === 'VOTRE_SUPABASE_URL' || !window.supabase) {
+    console.log('[BusOps] Mode localStorage (Supabase non configuré)');
+    _sbReady = false;
+    return false;
+  }
+  try {
+    _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    _sbReady = true;
+    console.log('[BusOps] ✅ Supabase connecté');
+    return true;
+  } catch(e) {
+    console.error('[BusOps] Erreur Supabase:', e);
+    _sbReady = false;
+    return false;
+  }
+}
+
+// ── AUTH — Connexion ──────────────────────────────────────────────────────
+async function _sbLogin(email, pwd) {
+  if (!_sbReady) return null;
+  var res = await _sb.auth.signInWithPassword({ email: email, password: pwd });
+  if (res.error) throw res.error;
+  _sbUser = res.data.user;
+  // Récupérer le profil complet
+  var profile = await _sbGetProfile(email);
+  return profile;
+}
+
+async function _sbLogout() {
+  if (!_sbReady) return;
+  await _sb.auth.signOut();
+  _sbUser = null;
+}
+
+async function _sbGetProfile(email) {
+  if (!_sbReady) return null;
+  var { data, error } = await _sb.from('users').select('*').eq('email', email).single();
+  if (error) { console.error('Profile error:', error); return null; }
+  return data;
+}
+
+// ── AUTH — Inscription ────────────────────────────────────────────────────
+async function _sbRegister(nom, email, pwd, role, companyId, guichet) {
+  if (!_sbReady) return null;
+  // 1. Créer le compte auth Supabase
+  var res = await _sb.auth.signUp({ email: email, password: pwd,
+    options: { data: { nom: nom, role: role } }
+  });
+  if (res.error) throw res.error;
+  _sbUser = res.data.user;
+
+  // 2. Créer le profil dans la table users
+  var { data, error } = await _sb.from('users').insert({
+    id: _sbUser.id, email: email, nom: nom,
+    role: role, company_id: companyId || null, guichet: guichet || null
+  }).select().single();
+  if (error) throw error;
+
+  // 3. Si patron, créer/mettre à jour la compagnie
+  if (role === 'patron' && companyId) {
+    await _sb.from('companies').upsert({
+      id: companyId, nom: companyId, plan: 'trial', status: 'trial'
+    }, { onConflict: 'id', ignoreDuplicates: true });
+  }
+  return data;
+}
+
+// ── TICKETS ───────────────────────────────────────────────────────────────
+async function _sbSaveTicket(ticket) {
+  if (!_sbReady) {
+    // Fallback localStorage
+    var t = {}; try { t = JSON.parse(localStorage.getItem('busops_tickets') || '{}'); } catch(e) {}
+    t[ticket.code] = ticket;
+    localStorage.setItem('busops_tickets', JSON.stringify(t));
+    return true;
+  }
+  var { error } = await _sb.from('tickets').upsert({
+    code:           ticket.code,
+    company_id:     ticket.cid || _guCid || '',
+    nom:            ticket.nom,
+    tel:            ticket.tel || '',
+    destination:    ticket.dest,
+    bus:            ticket.bus || '',
+    nb_places:      ticket.nb || 1,
+    montant:        ticket.montant || 0,
+    mode_paiement:  ticket.pay || 'especes',
+    source:         ticket.source || 'guichetier',
+    scanned:        ticket.scanned || false,
+    date_voyage:    ticket.dateVoyage || new Date().toISOString().split('T')[0],
+    emis_par:       ticket.emisPar || _guUsername || ''
+  });
+  if (error) { console.error('Ticket save error:', error);
+    // Fallback localStorage
+    var t = {}; try { t = JSON.parse(localStorage.getItem('busops_tickets') || '{}'); } catch(e) {}
+    t[ticket.code] = ticket;
+    localStorage.setItem('busops_tickets', JSON.stringify(t));
+  }
+  return !error;
+}
+
+async function _sbGetTickets(companyId, dateVoyage) {
+  if (!_sbReady) {
+    var t = {}; try { t = JSON.parse(localStorage.getItem('busops_tickets') || '{}'); } catch(e) {}
+    return t;
+  }
+  var q = _sb.from('tickets').select('*').eq('company_id', companyId);
+  if (dateVoyage) q = q.eq('date_voyage', dateVoyage);
+  q = q.order('created_at', { ascending: false }).limit(500);
+  var { data, error } = await q;
+  if (error) {
+    var t = {}; try { t = JSON.parse(localStorage.getItem('busops_tickets') || '{}'); } catch(e) {}
+    return t;
+  }
+  // Convertir en objet indexé par code
+  var result = {};
+  (data || []).forEach(function(tk) {
+    result[tk.code] = {
+      code: tk.code, nom: tk.nom, tel: tk.tel,
+      dest: tk.destination, bus: tk.bus,
+      nb: tk.nb_places, montant: tk.montant,
+      pay: tk.mode_paiement, source: tk.source,
+      scanned: tk.scanned, dateVoyage: tk.date_voyage,
+      emis: tk.created_at
+    };
+  });
+  return result;
+}
+
+async function _sbScanTicket(code) {
+  if (!_sbReady) {
+    var t = {}; try { t = JSON.parse(localStorage.getItem('busops_tickets') || '{}'); } catch(e) {}
+    if (t[code]) { t[code].scanned = true; localStorage.setItem('busops_tickets', JSON.stringify(t)); }
+    return;
+  }
+  await _sb.from('tickets').update({ scanned: true }).eq('code', code);
+}
+
+// ── COLIS ─────────────────────────────────────────────────────────────────
+async function _sbSaveColis(colis) {
+  if (!_sbReady) {
+    var cl = []; try { cl = JSON.parse(localStorage.getItem('busops_colis') || '[]'); } catch(e) {}
+    var idx = cl.findIndex(function(x) { return x.id === colis.id; });
+    if (idx >= 0) cl[idx] = colis; else cl.unshift(colis);
+    localStorage.setItem('busops_colis', JSON.stringify(cl));
+    return true;
+  }
+  var { error } = await _sb.from('colis').upsert({
+    id:               colis.id,
+    company_id:       _guCid || '',
+    expediteur:       colis.expediteur || '',
+    tel_expediteur:   colis.telExp || '',
+    destinataire:     colis.destinataire || '',
+    tel_destinataire: colis.telDest || '',
+    destination:      colis.destination || '',
+    description:      colis.description || '',
+    poids:            colis.poids || 0,
+    montant:          colis.montant || 0,
+    statut:           colis.statut || 'recu'
+  });
+  if (error) {
+    var cl = []; try { cl = JSON.parse(localStorage.getItem('busops_colis') || '[]'); } catch(e) {}
+    var idx = cl.findIndex(function(x) { return x.id === colis.id; });
+    if (idx >= 0) cl[idx] = colis; else cl.unshift(colis);
+    localStorage.setItem('busops_colis', JSON.stringify(cl));
+  }
+  return !error;
+}
+
+async function _sbGetColis(companyId) {
+  if (!_sbReady) {
+    var cl = []; try { cl = JSON.parse(localStorage.getItem('busops_colis') || '[]'); } catch(e) {}
+    return cl;
+  }
+  var { data, error } = await _sb.from('colis').select('*')
+    .eq('company_id', companyId).order('created_at', { ascending: false }).limit(200);
+  if (error) {
+    var cl = []; try { cl = JSON.parse(localStorage.getItem('busops_colis') || '[]'); } catch(e) {}
+    return cl;
+  }
+  return (data || []).map(function(co) {
+    return {
+      id: co.id, expediteur: co.expediteur, telExp: co.tel_expediteur,
+      destinataire: co.destinataire, telDest: co.tel_destinataire,
+      destination: co.destination, description: co.description,
+      poids: co.poids, montant: co.montant, statut: co.statut
+    };
+  });
+}
+
+// ── UTILISATEURS ─────────────────────────────────────────────────────────
+async function _sbGetAllUsers() {
+  if (!_sbReady) {
+    var u = {}; try { u = JSON.parse(localStorage.getItem('busops_users') || '{}'); } catch(e) {}
+    return u;
+  }
+  var { data, error } = await _sb.from('users').select('*').order('created_at');
+  if (error) {
+    var u = {}; try { u = JSON.parse(localStorage.getItem('busops_users') || '{}'); } catch(e) {}
+    return u;
+  }
+  var result = {};
+  (data || []).forEach(function(u) { result[u.email] = u; });
+  return result;
+}
+
+// ── STATUT COMPAGNIES (admin) ─────────────────────────────────────────────
+async function _sbSetCompanyStatus(companyId, status) {
+  if (!_sbReady) {
+    var st = {}; try { st = JSON.parse(localStorage.getItem('busops_company_status') || '{}'); } catch(e) {}
+    st[companyId] = status;
+    localStorage.setItem('busops_company_status', JSON.stringify(st));
+    return;
+  }
+  await _sb.from('companies').update({ status: status }).eq('id', companyId);
+}
+
+async function _sbGetCompanies() {
+  if (!_sbReady) {
+    var st = {}; try { st = JSON.parse(localStorage.getItem('busops_company_status') || '{}'); } catch(e) {}
+    return st;
+  }
+  var { data, error } = await _sb.from('companies').select('*');
+  if (error) return {};
+  var result = {};
+  (data || []).forEach(function(co) { result[co.id] = co; });
+  return result;
+}
+
+// ── LOGS ADMIN ─────────────────────────────────────────────────────────────
+async function _sbLog(level, msg, ip) {
+  if (!_sbReady) {
+    var logs = []; try { logs = JSON.parse(localStorage.getItem('busops_admin_logs') || '[]'); } catch(e) {}
+    logs.unshift({ ts: new Date().toLocaleString('fr-FR'), level: level, msg: msg, ip: ip || '—' });
+    if (logs.length > 100) logs = logs.slice(0, 100);
+    localStorage.setItem('busops_admin_logs', JSON.stringify(logs));
+    return;
+  }
+  await _sb.from('admin_logs').insert({ level: level, message: msg, ip: ip || null });
+}
+
+// ── TEMPS RÉEL — Écouter les nouveaux billets ─────────────────────────────
+var _sbRealtime = null;
+function _sbWatchTickets(companyId, onNew) {
+  if (!_sbReady) return;
+  if (_sbRealtime) _sbRealtime.unsubscribe();
+  _sbRealtime = _sb.channel('tickets-' + companyId)
+    .on('postgres_changes', {
+      event: 'INSERT', schema: 'public', table: 'tickets',
+      filter: 'company_id=eq.' + companyId
+    }, function(payload) {
+      console.log('[BusOps] Nouveau billet reçu:', payload.new);
+      if (onNew) onNew(payload.new);
+    })
+    .subscribe();
+}
+
+// ── INDICATEUR SUPABASE dans le UI ────────────────────────────────────────
+function _updateDbIndicator() {
+  var el = document.getElementById('db-indicator');
+  if (!el) return;
+  if (_sbReady) {
+    el.innerHTML = '<span style="color:#4ade80;font-size:.7rem;font-weight:700">☁️ Supabase</span>';
+    el.title = 'Base de données cloud active';
+  } else {
+    el.innerHTML = '<span style="color:#fcd34d;font-size:.7rem;font-weight:700">💾 Local</span>';
+    el.title = 'Données locales (Supabase non configuré)';
+  }
+}
+
+// ── Initialisation au chargement ──────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  _initSupabase();
+  _updateDbIndicator();
+});
+// ══ Fin couche Supabase ════════════════════════════════════════════════════
+
+
 // ══ Gestion de la connectivité réseau ════════════════════════════════════
 var _isOnline=true;
 var _pingInterval=null;
@@ -1071,23 +1293,10 @@ var DEMO_PWD   = 'demo1234';
 var _loggedIn  = false; // démarre déconnecté — landing page d'abord
 var _guRole = 'patron';
 
-function doLogin() {
-  var email = (document.getElementById('login-email')||{}).value.trim();
-  var pwd   = (document.getElementById('login-pwd')||{}).value;
-  var err   = document.getElementById('login-err');
-  if (!email || !pwd) {
-    err.textContent = 'Veuillez renseigner votre e-mail et votre mot de passe.';
-    err.style.display='block'; return;
-  }
-  // Vérifier la connexion internet avant de permettre la connexion
-  if(!navigator.onLine){
-    err.textContent='❌ Pas de connexion internet. BusOps nécessite un réseau pour fonctionner.';
-    err.style.display='block'; return;
-  }
-  // Chercher l'utilisateur dans la base locale
-  var users={};
-  try{users=JSON.parse(localStorage.getItem('busops_users')||'{}');}catch(e){}
-  var user=users[email];
+
+// ── Corps du login (partagé Supabase + localStorage) ─────────────────────
+function _processLogin(email, pwd, user, err) {
+  if (!err) err = document.getElementById('login-err');
   // Comptes démo intégrés
   var DEMO_ACCOUNTS={
     'demo@busops.bj':        {nom:'Compte de démonstration', role:'patron',      cid:'baobab',  guichet:'',           pwd:'demo1234'},
@@ -1141,6 +1350,44 @@ function doLogin() {
     _guGuichet=user.guichet||'Guichet 1';
     _startGuichetApp();
   }
+}
+
+function doLogin() {
+  var email = (document.getElementById('login-email')||{}).value.trim();
+  var pwd   = (document.getElementById('login-pwd')||{}).value;
+  var err   = document.getElementById('login-err');
+  if (!email || !pwd) {
+    err.textContent = 'Veuillez renseigner votre e-mail et votre mot de passe.';
+    err.style.display='block'; return;
+  }
+  if(!navigator.onLine){
+    err.textContent='❌ Pas de connexion internet. BusOps nécessite un réseau pour fonctionner.';
+    err.style.display='block'; return;
+  }
+  // ── Supabase Auth (si configuré) ─────────────────────────────────────
+  if (_sbReady) {
+    var btn = document.getElementById('btn-login-submit') || document.querySelector('[onclick="doLogin()"]');
+    if (btn) { btn.textContent = '⏳ Connexion…'; btn.disabled = true; }
+    _sbLogin(email, pwd).then(function(profile) {
+      if (btn) { btn.textContent = 'Se connecter'; btn.disabled = false; }
+      if (!profile) { err.textContent = '❌ Identifiants incorrects.'; err.style.display='block'; return; }
+      // Utiliser le profil Supabase
+      var user = { nom: profile.nom, role: profile.role, cid: profile.company_id, guichet: profile.guichet };
+      _processLogin(email, pwd, user, err);
+    }).catch(function(e) {
+      if (btn) { btn.textContent = 'Se connecter'; btn.disabled = false; }
+      // Fallback localStorage/démo
+      var users={}; try{users=JSON.parse(localStorage.getItem('busops_users')||'{}');}catch(ex){}
+      var user=users[email];
+      _processLogin(email, pwd, user, err);
+    });
+    return;
+  }
+  // ── Fallback localStorage ─────────────────────────────────────────────
+  var users={};
+  try{users=JSON.parse(localStorage.getItem('busops_users')||'{}');}catch(e){}
+  var user=users[email];
+  _processLogin(email, pwd, user, err);
 }
 
 function logout() {
@@ -7579,6 +7826,18 @@ function selectGuichetNum(n) {
   });
 }
 
+
+function _saveUserLocal(email,data){
+  var users={}; try{users=JSON.parse(localStorage.getItem('busops_users')||'{}');}catch(e){}
+  users[email]=data;
+  try{localStorage.setItem('busops_users',JSON.stringify(users));}catch(e){}
+}
+function _finishRegister(nom,email,role,cid,guichet){
+  document.getElementById('login-screen').style.display='none';
+  if(role==='patron'){ startSync(cid,nom); }
+  else { _guRole=role; _guUsername=nom; _guGuichet=guichet; _startGuichetApp(); }
+}
+
 function submitRegister() {
   var nom   = document.getElementById('reg-nom').value.trim();
   var email = document.getElementById('reg-email').value.trim();
@@ -7597,19 +7856,28 @@ function submitRegister() {
     err.textContent = 'Mot de passe trop court (6 caractères minimum).'; err.style.display='block'; return;
   }
   err.style.display = 'none';
-  // Sauvegarder l'utilisateur avec son rôle
-  var users={};
-  try{users=JSON.parse(localStorage.getItem('busops_users')||'{}');}catch(e){}
-  users[email]={nom:nom, role:role, cid:cid, guichet:guichet, pwd:pwd};
-  try{localStorage.setItem('busops_users', JSON.stringify(users));}catch(e){}
-  // Lancer la suite selon rôle
-  document.getElementById('login-screen').style.display='none';
-  if(role==='patron'){
-    startSync(cid, nom);
-  } else {
-    _guRole=role; _guUsername=nom; _guGuichet=guichet;
-    _startGuichetApp();
+  // ── Supabase (si configuré) ──────────────────────────────────────────
+  if (_sbReady) {
+    var btn2 = document.querySelector('[onclick="submitRegister()"]');
+    if(btn2){btn2.textContent='⏳ Création…';btn2.disabled=true;}
+    _sbRegister(nom, email, pwd, role, cid, guichet).then(function(profile) {
+      if(btn2){btn2.textContent='Créer mon compte';btn2.disabled=false;}
+      _finishRegister(nom, email, role, cid, guichet);
+    }).catch(function(e) {
+      if(btn2){btn2.textContent='Créer mon compte';btn2.disabled=false;}
+      if(e.message&&e.message.includes('already registered')){
+        var er=document.getElementById('reg-err');
+        er.textContent='❌ Cet email est déjà utilisé.'; er.style.display='block'; return;
+      }
+      // Fallback localStorage
+      _saveUserLocal(email,{nom,role,cid,guichet,pwd});
+      _finishRegister(nom, email, role, cid, guichet);
+    });
+    return;
   }
+  // ── Fallback localStorage ─────────────────────────────────────────────
+  _saveUserLocal(email,{nom:nom,role:role,cid:cid,guichet:guichet,pwd:pwd});
+  _finishRegister(nom, email, role, cid, guichet);
 }
 
 // ── Overlay de synchronisation ────────────────────────────────────────────
