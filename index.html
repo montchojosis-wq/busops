@@ -56,6 +56,57 @@
   #landing-page h1[style*="font-size:3.5rem"]{font-size:1.75rem!important;}
 }
 
+/* ── SECTION "POUR QUI ?" — cartes rôles ────────────────────────────── */
+@media(max-width:720px){
+  /* 1 carte par ligne sur mobile */
+  #lp-roles div[style*="grid-template-columns:repeat(2,1fr)"]{
+    grid-template-columns:1fr!important;
+    gap:1rem!important;
+  }
+  /* Réduire padding des cartes */
+  #lp-roles div[style*="border-radius:1.375rem;padding:2rem"]{
+    padding:1.25rem!important;
+  }
+  /* Icône + texte header de carte */
+  #lp-roles div[style*="display:flex;align-items:center;gap:1rem"]{
+    gap:.75rem!important;
+  }
+  /* Badge label (PROPRIÉTAIRE DE COMPAGNIE...) */
+  #lp-roles div[style*="font-size:.68rem"]{
+    font-size:.62rem!important;
+    white-space:normal!important;
+    line-height:1.3!important;
+  }
+  /* Titre carte (Le Patron, Le Client...) */
+  #lp-roles div[style*="font-size:1.25rem;font-weight:800"]{
+    font-size:1.1rem!important;
+  }
+  /* Paragraphe description */
+  #lp-roles p[style*="font-size:.9rem"]{
+    font-size:.85rem!important;
+  }
+  /* Items checklist */
+  #lp-roles div[style*="font-size:.85rem;color:rgba(255,255,255,.6)"]{
+    font-size:.8rem!important;
+  }
+  /* Titre section h2 */
+  #lp-roles h2[style*="font-size:2.5rem"]{
+    font-size:1.875rem!important;
+  }
+  /* Globe décoratif de fond — cacher */
+  #lp-roles div[style*="position:absolute;top:-2rem"]{
+    display:none!important;
+  }
+}
+@media(max-width:480px){
+  #lp-roles div[style*="border-radius:1.375rem;padding:2rem"]{
+    padding:1rem!important;
+  }
+  #lp-roles h2[style*="font-size:2.5rem"]{
+    font-size:1.5rem!important;
+  }
+}
+
 /* Grilles features → 1 colonne sur mobile */
 @media(max-width:700px){
   #lp-features div[style*="grid-template-columns:repeat(3,1fr)"],
@@ -346,11 +397,11 @@ function busopsCloseMenu(){
           <span style="font-size:.78rem;font-weight:700;color:#5EEAD4">🌍 Pionnier du transport digital en Afrique de l'Ouest</span>
         </div>
         <h1 style="font-size:3.5rem;font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.03em;margin:0 0 1.25rem">
-          Gérez vos lignes.<br>
-          <span style="background:linear-gradient(135deg,#7C54DE,#5EEAD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Vendez vos billets.</span><br>
-          Tracez chaque voyage.
+          Votre billet en un clic.<br>
+          <span style="background:linear-gradient(135deg,#a78bfa,#5EEAD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Votre réseau, sous contrôle.</span><br>
+          Partout en Afrique de l'Ouest.
         </h1>
-        <p style="font-size:1.05rem;color:rgba(255,255,255,.55);line-height:1.7;margin:0 0 2rem;max-width:480px">BusOps est la plateforme SaaS tout-en-un pour les compagnies de bus interurbains au Bénin et en Afrique francophone. Patron, guichetier, convoyeur ou voyageur — un seul outil pour tous.</p>
+        <p style="font-size:1.05rem;color:rgba(255,255,255,.55);line-height:1.7;margin:0 0 2rem;max-width:480px">Vous êtes voyageur ? Réservez votre siège en 30 secondes, recevez votre billet sur WhatsApp. Vous gérez une compagnie ? Pilotez vos départs, encaissez en temps réel, suivez chaque passager. BusOps connecte les deux.</p>
         <div style="display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:2.5rem">
           <button onclick="showLandingToLogin()" style="padding:.875rem 1.75rem;border:none;border-radius:.875rem;background:linear-gradient(135deg,#7C54DE,#5b3fbf);color:#fff;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(124,84,222,.45);display:flex;align-items:center;gap:.5rem;transition:.15s" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
             Commencer gratuitement
@@ -6405,7 +6456,7 @@ function _clientBillets(){
       '<div style="font-size:.8rem;font-weight:600;color:#0f4b42;margin-top:.3rem;opacity:.85">Billets total</div>'+
     '</div>'+
     '<div style="background:#818CF8;border-radius:.875rem;padding:1rem 1.125rem">'+
-      '<div style="font-size:2rem;font-weight:800;color:#1e1b4b">'+billets.filter(function(b){return !b.scanned;}).length+'</div>'+
+      '<div style="font-size:2rem;font-weight:800;color:#1e1b4b">'+billets.filter(function(b){return !b.scanned&&!b.annule;}).length+'</div>'+
       '<div style="font-size:.8rem;font-weight:600;color:#1e1b4b;margin-top:.3rem;opacity:.85">À utiliser</div>'+
     '</div>'+
     '<div style="background:#C084FC;border-radius:.875rem;padding:1rem 1.125rem">'+
@@ -6464,8 +6515,10 @@ function _clientBillets(){
               '<div style="font-size:1.1rem;font-weight:800;color:#7C54DE;letter-spacing:.12em;font-family:monospace">'+b.code+'</div>'+
             '</div>'
           :'')+
-          '<div style="padding:0 .875rem .875rem;display:flex;gap:.5rem">'+
-            (b.code&&!scanned?
+          '<div style="padding:0 .875rem .875rem;display:flex;gap:.5rem;flex-wrap:wrap">'+
+            (b.annule?
+              '<div style="flex:1;background:#fff5f5;border:1.5px solid #fecaca;border-radius:.75rem;padding:.6rem;text-align:center;font-size:.78rem;color:#dc2626;font-weight:700">🗑 Annulé'+(b.montantRembours?' · Remboursement: '+b.montantRembours.toLocaleString('fr-FR')+' FCFA':'')+'</div>'
+            :b.code&&!scanned?
               '<button onclick="clientPresenterBillet(\''+b.code+'\')" style="flex:1;padding:.625rem .875rem;border:none;border-radius:.75rem;background:linear-gradient(135deg,#22C55E,#16a34a);color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;gap:.375rem">'+
                 '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:.875rem;height:.875rem"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>'+
                 'Présenter au convoyeur'+
@@ -6475,6 +6528,9 @@ function _clientBillets(){
             :'')+
             (b.code?
               '<button onclick="_showQRForCode(\''+b.code+'\')" style="padding:.625rem .75rem;border:1.5px solid '+(scanned?'#e5e7eb':'#ede9fe')+';border-radius:.75rem;background:'+(scanned?'#f3f4f6':'#fff')+';color:'+(scanned?'#9ca3af':'#7C54DE')+';font-size:.8rem;font-weight:700;cursor:pointer">'+(scanned?'✅ QR':'Agrandir QR')+'</button>'
+            :'')+
+            (b.code&&!scanned&&!b.annule?
+              '<button onclick="_clientCancelBillet(\''+b.code+'\')" style="width:100%;margin-top:.375rem;padding:.5rem;background:none;border:1.5px solid #fecaca;border-radius:.75rem;font-size:.75rem;font-weight:600;color:#dc2626;cursor:pointer;transition:all .15s" onmouseover="this.style.background=\'#fff5f5\'" onmouseout="this.style.background=\'none\'">🗑 Annuler cette réservation</button>'
             :'')+
           '</div>'+
         '</div>';
@@ -7422,6 +7478,270 @@ function _fallbackWAAndClose(blob,tel,msg,code,btn,onDone){
   // Fermer le modal et aller à Mes billets après 2.5s
   setTimeout(onDone,2500);
 }
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// POLITIQUE D'ANNULATION — Patron définit, Client voit & peut annuler
+// ═══════════════════════════════════════════════════════════════════════════
+
+var LS_CANCEL_POLICY = 'busops_cancel_policy';
+
+// ── Lire/sauver la politique d'annulation ───────────────────────────────
+function _getCancelPolicy(){
+  try{
+    var p=JSON.parse(localStorage.getItem(LS_CANCEL_POLICY)||'null');
+    return p||{active:false,delai:24,remboursement:80,conditions:''};
+  }catch(e){ return {active:false,delai:24,remboursement:80,conditions:''}; }
+}
+function _saveCancelPolicy(policy){
+  try{ localStorage.setItem(LS_CANCEL_POLICY,JSON.stringify(policy)); }catch(e){}
+}
+
+// ── Injecter la section "Politique d'annulation" dans la page Paramètres patron ──
+function _injectCancelPolicySection(){
+  var cont=document.getElementById('main-content');
+  if(!cont) return;
+  if(document.getElementById('cancel-policy-section')) return; // déjà injecté
+  var pol=_getCancelPolicy();
+
+  var section=document.createElement('div');
+  section.id='cancel-policy-section';
+  section.style.cssText='margin-top:2rem';
+
+  section.innerHTML=
+    '<div style="background:#fff;border-radius:1.375rem;padding:1.75rem 2rem;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1.5px solid #f0eef8">'+
+      '<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">'+
+        '<div>'+
+          '<div style="display:flex;align-items:center;gap:.625rem;margin-bottom:.375rem">'+
+            '<span style="font-size:1.375rem">🔄</span>'+
+            '<h3 style="font-size:1.0625rem;font-weight:800;color:#1a0e40;margin:0">Politique d\'annulation</h3>'+
+          '</div>'+
+          '<p style="font-size:.8125rem;color:#6b7280;margin:0">Définissez les conditions que vos clients verront avant d\'annuler un billet.</p>'+
+        '</div>'+
+        // Toggle actif/inactif
+        '<div style="display:flex;align-items:center;gap:.625rem">'+
+          '<span id="cp-active-label" style="font-size:.8rem;font-weight:700;color:'+(pol.active?'#059669':'#9ca3af')+'">'+(pol.active?'Activée':'Désactivée')+'</span>'+
+          '<button id="cp-toggle" onclick="_toggleCancelPolicy()" style="'+
+            'width:3rem;height:1.625rem;border-radius:999px;border:none;cursor:pointer;position:relative;transition:.2s;'+
+            'background:'+(pol.active?'#7C54DE':'#e5e7eb')+'">'+
+            '<span id="cp-toggle-dot" style="position:absolute;top:3px;left:'+(pol.active?'24':'3')+'px;'+
+              'width:1.25rem;height:1.25rem;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.2)"></span>'+
+          '</button>'+
+        '</div>'+
+      '</div>'+
+      // Corps (visible si actif)
+      '<div id="cp-body" style="display:'+(pol.active?'block':'none')+'">'+
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.125rem;margin-bottom:1.125rem">'+
+          // Délai
+          '<div>'+
+            '<label style="font-size:.8rem;font-weight:700;color:#374151;display:block;margin-bottom:.5rem">'+
+              '⏰ Délai minimum avant départ'+
+            '</label>'+
+            '<select id="cp-delai" style="width:100%;padding:.7rem .875rem;border:1.5px solid #e5e7eb;border-radius:.75rem;font-size:.875rem;background:#fff;outline:none;font-family:inherit">'+
+              '<option value="0" '+(pol.delai===0?'selected':'')+'>Jusqu\'au départ</option>'+
+              '<option value="1" '+(pol.delai===1?'selected':'')+'>1 heure avant</option>'+
+              '<option value="2" '+(pol.delai===2?'selected':'')+'>2 heures avant</option>'+
+              '<option value="6" '+(pol.delai===6?'selected':'')+'>6 heures avant</option>'+
+              '<option value="12" '+(pol.delai===12?'selected':'')+'>12 heures avant</option>'+
+              '<option value="24" '+(pol.delai===24?'selected':'')+'>24 heures avant</option>'+
+              '<option value="48" '+(pol.delai===48?'selected':'')+'>48 heures avant</option>'+
+              '<option value="72" '+(pol.delai===72?'selected':'')+'>72 heures avant</option>'+
+            '</select>'+
+          '</div>'+
+          // Remboursement
+          '<div>'+
+            '<label style="font-size:.8rem;font-weight:700;color:#374151;display:block;margin-bottom:.5rem">'+
+              '💰 Taux de remboursement'+
+            '</label>'+
+            '<select id="cp-rembours" style="width:100%;padding:.7rem .875rem;border:1.5px solid #e5e7eb;border-radius:.75rem;font-size:.875rem;background:#fff;outline:none;font-family:inherit">'+
+              '<option value="0"  '+(pol.remboursement===0?'selected':'')+'>Aucun remboursement (0 %)</option>'+
+              '<option value="25" '+(pol.remboursement===25?'selected':'')+'>25 % remboursé</option>'+
+              '<option value="50" '+(pol.remboursement===50?'selected':'')+'>50 % remboursé</option>'+
+              '<option value="75" '+(pol.remboursement===75?'selected':'')+'>75 % remboursé</option>'+
+              '<option value="100"'+(pol.remboursement===100?'selected':'')+'>Remboursement complet (100 %)</option>'+
+            '</select>'+
+          '</div>'+
+        '</div>'+
+        // Conditions personnalisées
+        '<div style="margin-bottom:1.125rem">'+
+          '<label style="font-size:.8rem;font-weight:700;color:#374151;display:block;margin-bottom:.5rem">'+
+            '📋 Conditions supplémentaires <span style="font-weight:400;color:#9ca3af">(optionnel)</span>'+
+          '</label>'+
+          '<textarea id="cp-conditions" rows="3" placeholder="Ex : L\'annulation doit être effectuée via l\'application. Aucun remboursement pour les billets promotionnels." style="width:100%;box-sizing:border-box;padding:.75rem .875rem;border:1.5px solid #e5e7eb;border-radius:.75rem;font-size:.875rem;font-family:inherit;resize:vertical;outline:none;line-height:1.6">'+pol.conditions+'</textarea>'+
+        '</div>'+
+        // Aperçu client
+        '<div style="background:#f5f3ff;border:1.5px solid #c4b5fd;border-radius:.875rem;padding:1rem 1.125rem;margin-bottom:1.125rem">'+
+          '<div style="font-size:.72rem;font-weight:800;color:#7C54DE;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">👁 Aperçu côté client</div>'+
+          '<div id="cp-preview" style="font-size:.8rem;color:#4b5563;line-height:1.6"></div>'+
+        '</div>'+
+        // Bouton sauvegarder
+        '<button onclick="_saveCancelPolicyForm()" style="'+
+          'padding:.75rem 1.75rem;background:linear-gradient(135deg,#7C54DE,#5b3fbf);border:none;border-radius:.875rem;'+
+          'color:#fff;font-size:.875rem;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(124,84,222,.3)">'+
+          '✓ Enregistrer la politique'+
+        '</button>'+
+        '<span id="cp-saved" style="display:none;margin-left:1rem;font-size:.8rem;color:#059669;font-weight:700">✅ Sauvegardé</span>'+
+      '</div>'+
+    '</div>';
+
+  cont.appendChild(section);
+  _updateCancelPreview();
+
+  // Mettre à jour l'aperçu en temps réel
+  ['cp-delai','cp-rembours','cp-conditions'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('input',_updateCancelPreview);
+    if(el) el.addEventListener('change',_updateCancelPreview);
+  });
+}
+
+function _updateCancelPreview(){
+  var prev=document.getElementById('cp-preview');
+  if(!prev) return;
+  var delai=parseInt((document.getElementById('cp-delai')||{}).value||24);
+  var rembours=parseInt((document.getElementById('cp-rembours')||{}).value||80);
+  var conditions=(document.getElementById('cp-conditions')||{}).value||'';
+  var delaiTxt=delai===0?'jusqu\'à l\'heure du départ':
+    (delai===1?'au moins 1 heure':'au moins '+delai+' heures')+' avant le départ';
+  var text='Vous pouvez annuler votre réservation '+delaiTxt+'.';
+  if(rembours===0) text+=' Aucun remboursement ne sera effectué.';
+  else if(rembours===100) text+=' Vous serez remboursé(e) intégralement.';
+  else text+=' Vous serez remboursé(e) à hauteur de '+rembours+' % du montant payé.';
+  if(conditions.trim()) text+=' '+conditions.trim();
+  prev.textContent=text;
+}
+
+function _toggleCancelPolicy(){
+  var pol=_getCancelPolicy();
+  pol.active=!pol.active;
+  _saveCancelPolicy(pol);
+  var toggle=document.getElementById('cp-toggle');
+  var dot=document.getElementById('cp-toggle-dot');
+  var label=document.getElementById('cp-active-label');
+  var body=document.getElementById('cp-body');
+  if(toggle) toggle.style.background=pol.active?'#7C54DE':'#e5e7eb';
+  if(dot) dot.style.left=pol.active?'24px':'3px';
+  if(label){ label.textContent=pol.active?'Activée':'Désactivée'; label.style.color=pol.active?'#059669':'#9ca3af'; }
+  if(body) body.style.display=pol.active?'block':'none';
+}
+
+function _saveCancelPolicyForm(){
+  var delai=parseInt((document.getElementById('cp-delai')||{}).value||24);
+  var rembours=parseInt((document.getElementById('cp-rembours')||{}).value||80);
+  var conditions=((document.getElementById('cp-conditions')||{}).value||'').trim();
+  var pol=_getCancelPolicy();
+  pol.delai=delai; pol.remboursement=rembours; pol.conditions=conditions;
+  _saveCancelPolicy(pol);
+  var saved=document.getElementById('cp-saved');
+  if(saved){ saved.style.display='inline'; setTimeout(function(){ saved.style.display='none'; },2500); }
+  showToast('✅ Politique d\'annulation enregistrée');
+}
+
+// Hook : injecter la section quand on arrive sur la page Paramètres
+(function(){
+  var _origShow=window.showPage;
+  if(typeof _origShow!=='function') return;
+  window.showPage=function(key){
+    _origShow(key);
+    if(key==='parametres') setTimeout(_injectCancelPolicySection,80);
+  };
+})();
+
+// ── CÔTÉ CLIENT : Annulation d'un billet ────────────────────────────────
+
+function _clientCancelBillet(code){
+  var tickets={}; try{tickets=JSON.parse(localStorage.getItem('busops_tickets')||'{}');}catch(e){}
+  var t=tickets[code];
+  if(!t){ showToast('⚠ Billet introuvable'); return; }
+  if(t.annule){ showToast('Ce billet est déjà annulé.'); return; }
+  if(t.scanned){ showToast('Ce billet a déjà été utilisé — annulation impossible.'); return; }
+
+  var pol=_getCancelPolicy();
+
+  // Calculer le remboursement
+  var montantRembours=pol.active&&pol.remboursement>0
+    ? Math.round((t.montant||0)*pol.remboursement/100) : 0;
+
+  // Construire le texte des conditions
+  var condTxt='';
+  if(pol.active){
+    var delai=pol.delai;
+    var delaiTxt=delai===0?'jusqu\'à l\'heure du départ':
+      (delai===1?'au moins 1 heure':'au moins '+delai+' heures')+' avant le départ';
+    condTxt='Vous pouvez annuler '+delaiTxt+'. ';
+    if(pol.remboursement===0) condTxt+='Aucun remboursement ne sera effectué.';
+    else if(pol.remboursement===100) condTxt+='Vous serez remboursé(e) intégralement.';
+    else condTxt+='Remboursement de '+pol.remboursement+' % du montant payé.';
+    if(pol.conditions) condTxt+=' '+pol.conditions;
+  } else {
+    condTxt='La compagnie n\'a pas encore défini de politique d\'annulation. Contactez directement la compagnie pour toute demande d\'annulation.';
+  }
+
+  // Modal confirmation
+  var overlay=document.createElement('div');
+  overlay.id='modal-cancel-'+code;
+  overlay.onclick=function(e){ if(e.target===overlay) overlay.remove(); };
+  overlay.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(15,8,35,.85);display:flex;align-items:center;justify-content:center;padding:1.5rem';
+
+  overlay.innerHTML=
+    '<div style="background:#fff;border-radius:1.375rem;width:100%;max-width:440px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5)">'+
+      // Header
+      '<div style="background:linear-gradient(135deg,#fef2f2,#fff7ed);border-bottom:1.5px solid #fecaca;padding:1.125rem 1.5rem;display:flex;align-items:center;gap:.75rem">'+
+        '<span style="font-size:1.75rem">⚠️</span>'+
+        '<div>'+
+          '<h3 style="font-size:1rem;font-weight:800;color:#991b1b;margin:0">Annuler ce billet ?</h3>'+
+          '<p style="font-size:.78rem;color:#b45309;margin:0">Billet '+code+'</p>'+
+        '</div>'+
+        '<button onclick="document.getElementById(\'modal-cancel-'+code+'\').remove()" style="margin-left:auto;background:rgba(0,0,0,.08);border:none;border-radius:.5rem;width:2.25rem;height:2.25rem;cursor:pointer;font-size:1.1rem;display:grid;place-items:center">✕</button>'+
+      '</div>'+
+      // Détail billet
+      '<div style="padding:1.125rem 1.5rem;background:#fafafa;border-bottom:1px solid #f3f4f6">'+
+        '<div style="font-size:.72rem;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.375rem">Récapitulatif</div>'+
+        '<div style="font-size:.925rem;font-weight:700;color:#1a0e40">'+( t.dep||'')+'→'+(t.dest||'')+'&nbsp;·&nbsp;'+(t.bus||'')+'</div>'+
+        '<div style="font-size:.8rem;color:#6b7280;margin-top:.2rem">'+t.nom+' · '+(t.nb||1)+' place'+(t.nb>1?'s':'')+' · '+(t.montant||0).toLocaleString('fr-FR')+' FCFA</div>'+
+      '</div>'+
+      // Conditions
+      '<div style="padding:1.125rem 1.5rem">'+
+        '<div style="font-size:.72rem;font-weight:800;color:#7C54DE;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.625rem">📋 Conditions d\'annulation</div>'+
+        '<div style="background:#f5f3ff;border:1.5px solid #ddd6fe;border-radius:.875rem;padding:.875rem 1rem;font-size:.8125rem;color:#374151;line-height:1.65;margin-bottom:1rem">'+
+          condTxt+
+        '</div>'+
+        (pol.active&&pol.remboursement>0?
+          '<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:.875rem;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">'+
+            '<span style="font-size:.8rem;color:#166534;font-weight:600">💰 Remboursement estimé</span>'+
+            '<span style="font-size:1.05rem;font-weight:800;color:#15803d">'+montantRembours.toLocaleString('fr-FR')+' FCFA</span>'+
+          '</div>'
+        :'')+
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.625rem">'+
+          '<button onclick="document.getElementById(\'modal-cancel-'+code+'\').remove()" style="padding:.75rem;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:.875rem;font-size:.875rem;font-weight:700;color:#374151;cursor:pointer">Conserver</button>'+
+          '<button onclick="_confirmCancelBillet(\''+code+'\','+montantRembours+')" style="padding:.75rem;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:.875rem;font-size:.875rem;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(239,68,68,.3)">Confirmer l\'annulation</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  document.body.appendChild(overlay);
+}
+
+function _confirmCancelBillet(code, montantRembours){
+  // Marquer le billet comme annulé
+  var tickets={}; try{tickets=JSON.parse(localStorage.getItem('busops_tickets')||'{}');}catch(e){}
+  if(tickets[code]){
+    tickets[code].annule=true;
+    tickets[code].annuleLe=new Date().toISOString();
+    tickets[code].montantRembours=montantRembours||0;
+    try{localStorage.setItem('busops_tickets',JSON.stringify(tickets));}catch(e){}
+  }
+  // Fermer le modal
+  var overlay=document.getElementById('modal-cancel-'+code);
+  if(overlay) overlay.remove();
+  // Rafraîchir la liste
+  showClientPage('billets');
+  showToast('🗑 Billet '+code+' annulé'+(montantRembours>0?' · Remboursement de '+montantRembours.toLocaleString('fr-FR')+' FCFA en cours':''));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FIN POLITIQUE D'ANNULATION
+// ═══════════════════════════════════════════════════════════════════════════
 
 // ══ Fin achat en ligne ════════════════════════════════════════════════════
 
