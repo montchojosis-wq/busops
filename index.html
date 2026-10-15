@@ -1400,20 +1400,68 @@ async function _sbLog(level, msg, ip) {
   await _sb.from('admin_logs').insert({ level: level, message: msg, ip: ip || null });
 }
 
-// ── TEMPS RÉEL — Écouter les nouveaux billets ─────────────────────────────
+// ── TEMPS RÉEL — Écoute push multi-tables ─────────────────────────────────
 var _sbRealtime = null;
-function _sbWatchTickets(companyId, onNew) {
-  if (!_sbReady) return;
-  if (_sbRealtime) _sbRealtime.unsubscribe();
-  _sbRealtime = _sb.channel('tickets-' + companyId)
-    .on('postgres_changes', {
-      event: 'INSERT', schema: 'public', table: 'tickets',
-      filter: 'company_id=eq.' + companyId
-    }, function(payload) {
-      console.log('[BusOps] Nouveau billet reçu:', payload.new);
-      if (onNew) onNew(payload.new);
+
+function _sbSetupRealtime(cid) {
+  if (!_sbReady || !_sb) return;
+  if (_sbRealtime) { _sbRealtime.unsubscribe(); _sbRealtime = null; }
+
+  var chanName = 'busops-rt-' + (cid || 'global');
+  var channel  = _sb.channel(chanName);
+
+  // Filtre par compagnie si on a un cid (patron / guichetier / convoyeur)
+  // Pas de filtre pour superadmin (cid vide)
+  var ticketFilter = cid ? { event:'*', schema:'public', table:'tickets', filter:'company_id=eq.'+cid }
+                         : { event:'*', schema:'public', table:'tickets' };
+  var colisFilter  = cid ? { event:'*', schema:'public', table:'colis',   filter:'company_id=eq.'+cid }
+                         : { event:'*', schema:'public', table:'colis' };
+
+  channel
+    .on('postgres_changes', ticketFilter, function(payload) {
+      console.log('[BusOps RT] ticket', payload.eventType, payload.new || payload.old);
+      _onBusopsRtChange('billet', payload);
     })
-    .subscribe();
+    .on('postgres_changes', colisFilter, function(payload) {
+      console.log('[BusOps RT] colis', payload.eventType, payload.new || payload.old);
+      _onBusopsRtChange('colis', payload);
+    })
+    .on('postgres_changes', { event:'*', schema:'public', table:'users' }, function(payload) {
+      console.log('[BusOps RT] users', payload.eventType);
+      // Ne notifie que si c'est notre compagnie
+      var rec = payload.new || payload.old || {};
+      if (cid && rec.cid && rec.cid !== cid) return;
+      _onBusopsRtChange('utilisateur', payload);
+    })
+    .subscribe(function(status) {
+      if (status === 'SUBSCRIBED') {
+        console.log('[BusOps RT] ✅ Temps réel actif — canal:', chanName);
+      } else if (status === 'CHANNEL_ERROR') {
+        console.warn('[BusOps RT] ⚠️ Erreur canal realtime. Publiez les tables dans Supabase.');
+      }
+    });
+
+  _sbRealtime = channel;
+}
+
+// Compatibilité avec l'ancien nom
+function _sbWatchTickets(companyId, onNew) {
+  _sbSetupRealtime(companyId);
+}
+
+var _busopsRtDebounce = null;
+function _onBusopsRtChange(type, payload) {
+  var ev  = payload.eventType;
+  var msg = ev === 'INSERT' ? '🔔 Nouveau ' + type + ' reçu'
+          : ev === 'UPDATE' ? '✏️ ' + type.charAt(0).toUpperCase() + type.slice(1) + ' mis à jour'
+          : '🗑️ ' + type.charAt(0).toUpperCase() + type.slice(1) + ' supprimé';
+  showToast(msg, 3500);
+  // Rafraîchir les données locales
+  if (_busopsRtDebounce) clearTimeout(_busopsRtDebounce);
+  _busopsRtDebounce = setTimeout(function() {
+    if (typeof _sbLoadTickets === 'function') _sbLoadTickets();
+    if (typeof _sbLoadColis   === 'function') _sbLoadColis();
+  }, 800);
 }
 
 // ── INDICATEUR SUPABASE dans le UI ────────────────────────────────────────
@@ -1675,6 +1723,7 @@ var DEMO_EMAIL = 'Compte de démonstration'; // Nom affiché par défaut
 var DEMO_PWD   = 'demo1234';
 var _loggedIn  = false; // démarre déconnecté — landing page d'abord
 var _guRole = 'patron';
+var _guCid  = '';       // company id de l'utilisateur connecté
 
 
 // ── Corps du login (partagé Supabase + localStorage) ─────────────────────
@@ -1714,6 +1763,7 @@ function _processLogin(nomSaisi, pwd, user, err) {
   err.style.display='none';
   document.getElementById('login-screen').style.display='none';
   var role=user.role||'patron';
+  _guCid = user.cid || '';
   if(role==='patron'){
     _loggedIn=true;
   localStorage.setItem('busops_session','1');
@@ -1743,6 +1793,8 @@ function _processLogin(nomSaisi, pwd, user, err) {
     _guGuichet=user.guichet||'Guichet 1';
     _startGuichetApp();
   }
+  // Activer le temps réel Supabase après connexion
+  _sbSetupRealtime(_guCid);
 }
 
 function doLogin() {
