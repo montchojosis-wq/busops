@@ -321,6 +321,8 @@ input[type="date"]{
   background:#7C54DE;color:#fff;border-radius:.25rem;
 }
 </style>
+<!-- Supabase JS client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 <!-- ═══════════════ LANDING PAGE BUSOPS ═══════════════ -->
@@ -1150,7 +1152,7 @@ function busopsCloseMenu(){
 
 // ── CONFIGURATION — À remplir avec tes identifiants Supabase ─────────────
 var SUPABASE_URL = 'https://roirostesnrepgvontlu.supabase.co';       // ex: https://abcxyz.supabase.co
-var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvaXJvc3Rlc25yZXBndm9udGx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwNzQ3MjMsImV4cCI6MjEwNjY1MDcyM30.8RBhxMRIHySTgeGMqBQxMttgn1JvbuxUGD6-tUFhvGg'; // ex: eyJhbGciO...
+var SUPABASE_ANON_KEY = 'sb_publishable_-oASxWSP6hifcLZNTcTdCw_0LIQCOYK'; // ex: eyJhbGciO...
 
 var _sb = null;  // instance Supabase
 var _sbReady = false;
@@ -6313,11 +6315,17 @@ function _startSuperAdminApp(){
   if(nav) nav.innerHTML='<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.2rem">'+[
     {key:'overview', icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',label:'Vue d\'ensemble'},
     {key:'companies',icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',label:'Compagnies'},
+    {key:'contracts',icon:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>',label:'Contrats'},
+  ].concat([{sep:'DONNÉES'}]).concat([
     {key:'users',    icon:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',label:'Utilisateurs'},
     {key:'tickets',  icon:'<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>',label:'Tickets & Activité'},
-    {key:'contracts',icon:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>',label:'Contrats'},
-    {key:'logs',     icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',label:'Sécurité & Logs'},
-  ].map(function(it){
+    {key:'revenus',  icon:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',label:'Revenus & Stats'},
+    {key:'abonnements',icon:'<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>',label:'CA · Abonnements'},
+  ]).concat([{sep:'SÉCURITÉ'}]).concat([
+    {key:'logs',     icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',label:'Logs & Alertes'},
+    {key:'params',   icon:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',label:'Paramètres'},
+  ]).map(function(it){
+    if(it.sep) return '<li><div style="padding:.5rem 1.125rem .25rem;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.08em">'+it.sep+'</div></li>';
     return '<li><a onclick="showAdminPage(\''+it.key+'\');return false;" href="#" data-gu-page="'+it.key+'" '+
       'style="display:flex;align-items:center;gap:.875rem;padding:.7rem 1.125rem;border-radius:.875rem;font-size:.9rem;text-decoration:none;transition:all .15s;color:rgba(255,255,255,.65)">'+
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" style="width:1.1rem;height:1.1rem;flex-shrink:0"><'+it.icon+'</svg>'+
@@ -6341,6 +6349,9 @@ function showAdminPage(page){
   if(page==='tickets')    _adminTickets();
   if(page==='contracts')  _adminContracts();
   if(page==='logs')       _adminLogs();
+  if(page==='revenus')    _adminRevenus();
+  if(page==='abonnements') _adminCaAbonnements();
+  if(page==='params')     _adminParams();
 }
 
 // ── Lire toutes les données de la plateforme ───────────────────────────────
@@ -6743,6 +6754,257 @@ function _adminLogs(){
     '</tbody></table></div>';
   cont.innerHTML=html;
 }
+
+// ── Revenus & Stats ────────────────────────────────────────────────────────
+function _adminRevenus(){
+  var cont=document.getElementById('gu-main-content'); if(!cont) return;
+  var d=_getAdminData();
+  var tks=Object.values(d.tickets);
+  var totalTickets=tks.reduce(function(a,t){return a+(t.montant||0);},0);
+  var totalColis=d.colis.reduce(function(a,co){return a+(co.montant||0);},0);
+  var totalAbo=_getAboRevenu(d).mensuel;
+  var totalAll=totalTickets+totalColis+(totalAbo*1);
+
+  // Revenus par mois simulés (12 derniers mois)
+  var now=new Date(); var months=[];
+  for(var i=11;i>=0;i--){
+    var d2=new Date(now.getFullYear(),now.getMonth()-i,1);
+    months.push({label:d2.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'}),val:Math.round((totalAll/(i+1))*(.7+Math.random()*.6))});
+  }
+  var maxVal=Math.max.apply(null,months.map(function(m){return m.val;}));
+
+  var html='<div style="background:linear-gradient(135deg,#1a0820,#0f0515);border-radius:1.25rem;padding:1.5rem 1.75rem;margin-bottom:1.125rem;border:1px solid rgba(239,68,68,.15)">'+
+    '<div style="font-size:1rem;font-weight:800;color:#fff">📈 Revenus & Statistiques</div>'+
+    '<div style="font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.2rem">Vue consolidée des revenus générés sur la plateforme</div>'+
+  '</div>'+
+  '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.125rem">'+
+    _adminKpi('Total plateforme','💰',totalAll.toLocaleString('fr-FR')+' F','#ede9fe','#4c1d95')+
+    _adminKpi('Billetterie','🎫',totalTickets.toLocaleString('fr-FR')+' F','#dbeafe','#1e3a8a')+
+    _adminKpi('Colis','📦',totalColis.toLocaleString('fr-FR')+' F','#d1fae5','#14532d')+
+    _adminKpi('Abonnements/mois','💳',totalAbo.toLocaleString('fr-FR')+' F','#fef9c3','#713f12')+
+  '</div>'+
+
+  // Graphe barres simplifié
+  '<div style="background:var(--gu-card);border-radius:1.125rem;padding:1.375rem 1.625rem;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:1rem">'+
+    '<div style="font-size:.875rem;font-weight:700;color:var(--gu-text);margin-bottom:1.25rem">📊 Activité billetterie (12 derniers mois)</div>'+
+    '<div style="display:flex;align-items:flex-end;gap:.375rem;height:120px">'+
+    months.map(function(m){
+      var pct=maxVal>0?Math.max(4,Math.round((m.val/maxVal)*100)):4;
+      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem">'+
+        '<div style="width:100%;background:linear-gradient(180deg,#7C54DE,#c4b5fd);border-radius:.25rem .25rem 0 0;height:'+pct+'%;min-height:4px;transition:.3s"></div>'+
+        '<div style="font-size:.55rem;color:var(--gu-text-muted);writing-mode:vertical-rl;transform:rotate(180deg);height:28px;overflow:hidden">'+m.label+'</div>'+
+      '</div>';
+    }).join('')+
+    '</div>'+
+  '</div>'+
+
+  // Top compagnies
+  '<div style="background:var(--gu-card);border-radius:1.125rem;padding:1.375rem 1.625rem;box-shadow:0 2px 8px rgba(0,0,0,.06)">'+
+    '<div style="font-size:.875rem;font-weight:700;color:var(--gu-text);margin-bottom:1rem">🏢 Compagnies actives</div>'+
+    '<div style="display:flex;flex-direction:column;gap:.5rem">'+
+    Object.values(d.companies).map(function(co,idx){
+      var colors=['#7C54DE','#5EEAD4','#f59e0b','#EF4444','#22C55E'];
+      var col=colors[idx%colors.length];
+      return '<div style="display:flex;align-items:center;gap:1rem;padding:.625rem 0;border-bottom:1px solid var(--gu-row-border)">'+
+        '<div style="width:2rem;height:2rem;border-radius:.5rem;background:'+(co.couleur||col)+';display:grid;place-items:center;font-size:.9rem;flex-shrink:0">'+co.logo+'</div>'+
+        '<div style="flex:1"><div style="font-size:.85rem;font-weight:700;color:var(--gu-text)">'+co.nom+'</div>'+
+        '<div style="font-size:.72rem;color:var(--gu-text-muted)">'+co.lignes.length+' lignes · '+co.bus+' bus</div></div>'+
+        '<div style="font-size:.8rem;font-weight:700;color:'+col+'">'+
+          (co.status==='active'?'10 000–15 000 F/mois':co.status==='trial'?'Essai':'Suspendu')+
+        '</div>'+
+      '</div>';
+    }).join('')+
+    '</div>'+
+  '</div>';
+
+  cont.innerHTML=html;
+}
+
+// ── Calcul revenus abonnements ─────────────────────────────────────────────
+// Tarification par nombre d'agences
+var BUSOPS_ABO_PLANS={
+  starter:  {label:'Starter',  sous:'< 3 agences',   tarif:35000,  couleur:'#3b82f6'},
+  business: {label:'Business', sous:'3 – 5 agences',  tarif:85000,  couleur:'#7C54DE'},
+  premium:  {label:'Premium',  sous:'> 5 agences',   tarif:180000, couleur:'#22C55E'},
+  trial:    {label:'Essai',    sous:'30 jours gratuits', tarif:0,   couleur:'#d97706'}
+};
+function _getPlanByAgences(nbAgences){
+  if(nbAgences>5)  return 'premium';
+  if(nbAgences>=3) return 'business';
+  return 'starter';
+}
+function _getAboRevenu(d){
+  // Compagnies démo + leurs agences réelles
+  var compData={
+    'baobab':{nbAgences:3, status:'active'},   // 3 agences → Business → 85 000
+    'confort':{nbAgences:2, status:'trial'},    // 2 agences → Starter  → essai gratuit
+    'atl':    {nbAgences:1, status:'active'}    // 1 agence  → Starter  → 35 000
+  };
+  var mensuel=0; var nb_starter=0; var nb_business=0; var nb_premium=0; var trial=0;
+  var statuses={}; try{statuses=JSON.parse(localStorage.getItem('busops_company_status')||'{}');}catch(e){}
+  Object.keys(compData).forEach(function(cid){
+    var st=statuses[cid]||compData[cid].status;
+    if(st==='suspended'||st==='terminated') return;
+    if(st==='trial'){ trial++; return; }
+    var plan=_getPlanByAgences(compData[cid].nbAgences);
+    var tarif=BUSOPS_ABO_PLANS[plan].tarif;
+    mensuel+=tarif;
+    if(plan==='premium')  nb_premium++;
+    else if(plan==='business') nb_business++;
+    else nb_starter++;
+  });
+  // Patrons inscrits dynamiquement : on compte leurs agences dans localStorage
+  var users=[]; try{users=JSON.parse(localStorage.getItem('busops_users')||'[]');}catch(e){}
+  users.filter(function(u){return u.role==='patron'&&u.cid&&!compData[u.cid];}).forEach(function(u){
+    var agences=[]; try{agences=JSON.parse(localStorage.getItem('busops_agences_'+u.cid)||'[]');}catch(e){}
+    var plan=_getPlanByAgences(agences.length||1);
+    mensuel+=BUSOPS_ABO_PLANS[plan].tarif;
+    if(plan==='premium') nb_premium++;
+    else if(plan==='business') nb_business++;
+    else nb_starter++;
+  });
+  var payantes=nb_starter+nb_business+nb_premium;
+  return {mensuel:mensuel, annuel:mensuel*12,
+    nb_starter:nb_starter, nb_business:nb_business, nb_premium:nb_premium,
+    trial:trial, payantes:payantes, total:payantes+trial};
+}
+
+// ── CA · Abonnements ───────────────────────────────────────────────────────
+function _adminCaAbonnements(){
+  var cont=document.getElementById('gu-main-content'); if(!cont) return;
+  var d=_getAdminData();
+  var abo=_getAboRevenu(d);
+
+  var contractData=[
+    {id:'baobab',co:'Baobab Express',logo:'🌳',couleur:'#7C54DE',planType:'business',label:'Business · 3 ag.',tarif:85000, debut:'01/06/2026',fin:'31/05/2027',status:'active'},
+    {id:'confort',co:'Confort Lines', logo:'🚌',couleur:'#0891b2',planType:'trial',   label:'Essai Gratuit', tarif:0,     debut:'01/10/2026',fin:'30/10/2026',status:'trial'},
+    {id:'atl',   co:'ATL Express',   logo:'⚡',couleur:'#d97706',planType:'starter', label:'Starter · 1 ag.',tarif:35000, debut:'15/08/2026',fin:'14/08/2027',status:'active'},
+  ];
+
+  var statuses={}; try{statuses=JSON.parse(localStorage.getItem('busops_company_status')||'{}');}catch(e){}
+  contractData.forEach(function(ct){ct.status=statuses[ct.id]||ct.status;});
+
+  var html='<div style="background:linear-gradient(135deg,#1a0820,#0f0515);border-radius:1.25rem;padding:1.5rem 1.75rem;margin-bottom:1.125rem;border:1px solid rgba(239,68,68,.15)">'+
+    '<div style="display:flex;align-items:center;gap:.75rem">'+
+      '<span style="font-size:1.5rem">💳</span>'+
+      '<div>'+
+        '<div style="font-size:1rem;font-weight:800;color:#fff">CA · Abonnements Compagnies</div>'+
+        '<div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.15rem;text-transform:uppercase;letter-spacing:.05em">Revenus BusOps générés par les abonnements des compagnies partenaires</div>'+
+      '</div>'+
+    '</div>'+
+  '</div>'+
+
+  // KPIs
+  '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.125rem">'+
+    '<div style="background:#0d2b1a;border:1px solid #14532d;border-radius:1rem;padding:1.125rem 1.25rem">'+
+      '<div style="font-size:.65rem;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">CA MENSUEL</div>'+
+      '<div style="font-size:1.75rem;font-weight:800;color:#22C55E">'+abo.mensuel.toLocaleString('fr-FR')+' FCFA</div>'+
+    '</div>'+
+    '<div style="background:#1a1240;border:1px solid #3730a3;border-radius:1rem;padding:1.125rem 1.25rem">'+
+      '<div style="font-size:.65rem;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">PROJECTION ANNUELLE</div>'+
+      '<div style="font-size:1.75rem;font-weight:800;color:#818CF8">'+abo.annuel.toLocaleString('fr-FR')+' FCFA</div>'+
+    '</div>'+
+    '<div style="background:#1c1008;border:1px solid #78350f;border-radius:1rem;padding:1.125rem 1.25rem">'+
+      '<div style="font-size:.65rem;font-weight:700;color:#fbbf24;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">COMPAGNIES PAYANTES</div>'+
+      '<div style="font-size:1.75rem;font-weight:800;color:#f59e0b">'+abo.payantes+'</div>'+
+    '</div>'+
+    '<div style="background:#2d0a0a;border:1px solid #7f1d1d;border-radius:1rem;padding:1.125rem 1.25rem">'+
+      '<div style="font-size:.65rem;font-weight:700;color:#fca5a5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">ESSAIS GRATUITS</div>'+
+      '<div style="font-size:1.75rem;font-weight:800;color:#EF4444">'+abo.trial+'</div>'+
+    '</div>'+
+  '</div>'+
+
+  // Plans — tarification par nombre d'agences
+  '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.875rem;margin-bottom:1.125rem">'+
+    // Starter
+    '<div style="background:linear-gradient(135deg,#0d1a2d,#1e3a5f);border:1.5px solid rgba(59,130,246,.4);border-radius:1.125rem;padding:1.375rem 1.5rem">'+
+      '<div style="font-size:.875rem;font-weight:800;color:#93c5fd;margin-bottom:.25rem">🔵 Starter</div>'+
+      '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.875rem">Moins de 3 agences</div>'+
+      '<div style="background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.2);border-radius:.625rem;padding:.375rem .75rem;font-size:.75rem;font-weight:700;color:#60a5fa;display:inline-block;margin-bottom:.875rem">'+abo.nb_starter+' co.</div>'+
+      '<div style="font-size:2rem;font-weight:800;color:#fff">35 000 <span style="font-size:1rem;color:#93c5fd">FCFA</span></div>'+
+      '<div style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.2rem">/ mois</div>'+
+      '<div style="font-size:.8rem;color:#93c5fd;font-weight:600;margin-top:.75rem">CA mensuel : <span style="color:#fff">'+Math.round(abo.nb_starter*35000).toLocaleString(\'fr-FR\')+' FCFA</span></div>'+
+    '</div>'+
+    // Business
+    '<div style="background:linear-gradient(135deg,#1a0820,#2d1b4e);border:1.5px solid rgba(124,84,222,.4);border-radius:1.125rem;padding:1.375rem 1.5rem">'+
+      '<div style="font-size:.875rem;font-weight:800;color:#c4b5fd;margin-bottom:.25rem">🟣 Business</div>'+
+      '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.875rem">3 à 5 agences</div>'+
+      '<div style="background:rgba(124,84,222,.15);border:1px solid rgba(124,84,222,.2);border-radius:.625rem;padding:.375rem .75rem;font-size:.75rem;font-weight:700;color:#a78bfa;display:inline-block;margin-bottom:.875rem">'+abo.nb_business+' co.</div>'+
+      '<div style="font-size:2rem;font-weight:800;color:#fff">85 000 <span style="font-size:1rem;color:#c4b5fd">FCFA</span></div>'+
+      '<div style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.2rem">/ mois</div>'+
+      '<div style="font-size:.8rem;color:#c4b5fd;font-weight:600;margin-top:.75rem">CA mensuel : <span style="color:#fff">'+Math.round(abo.nb_business*85000).toLocaleString(\'fr-FR\')+' FCFA</span></div>'+
+    '</div>'+
+    // Premium
+    '<div style="background:linear-gradient(135deg,#0d2b1a,#1a4a2e);border:1.5px solid rgba(34,197,94,.4);border-radius:1.125rem;padding:1.375rem 1.5rem">'+
+      '<div style="font-size:.875rem;font-weight:800;color:#86efac;margin-bottom:.25rem">🟢 Premium</div>'+
+      '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.875rem">Plus de 5 agences</div>'+
+      '<div style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.2);border-radius:.625rem;padding:.375rem .75rem;font-size:.75rem;font-weight:700;color:#4ade80;display:inline-block;margin-bottom:.875rem">'+abo.nb_premium+' co.</div>'+
+      '<div style="font-size:2rem;font-weight:800;color:#fff">180 000 <span style="font-size:1rem;color:#86efac">FCFA</span></div>'+
+      '<div style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.2rem">/ mois</div>'+
+      '<div style="font-size:.8rem;color:#86efac;font-weight:600;margin-top:.75rem">CA mensuel : <span style="color:#fff">'+Math.round(abo.nb_premium*180000).toLocaleString(\'fr-FR\')+' FCFA</span></div>'+
+    '</div>'+
+  '</div>'+
+
+  // Tableau abonnements par compagnie
+  '<div style="background:var(--gu-card);border-radius:1.125rem;padding:1.375rem 1.625rem;box-shadow:0 2px 8px rgba(0,0,0,.07)">'+
+    '<div style="font-size:.875rem;font-weight:700;color:var(--gu-text);margin-bottom:1rem">🏢 Abonnements par compagnie</div>'+
+    '<div style="display:flex;flex-direction:column;gap:.625rem">'+
+    contractData.map(function(ct){
+      var st=ct.status;
+      var sCfg=st==='suspended'?{bg:'#fef2f2',col:'#dc2626',lbl:'⛔ Suspendu'}:
+               st==='trial'?{bg:'#fff7ed',col:'#c2410c',lbl:'🔶 Essai'}:
+               {bg:'#f0fdf4',col:'#16a34a',lbl:'✅ Actif'};
+      var planColor=ct.planType==='premium'?'#22C55E':ct.planType==='business'?'#7C54DE':ct.planType==='starter'?'#3b82f6':'#d97706';
+      return '<div style="display:flex;align-items:center;gap:1rem;padding:.875rem 1rem;background:var(--gu-item-bg);border-radius:.875rem;border:1px solid var(--gu-item-border)">'+
+        '<div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:'+(ct.couleur||'#7C54DE')+';display:grid;place-items:center;font-size:1.2rem;flex-shrink:0">'+ct.logo+'</div>'+
+        '<div style="flex:1;min-width:0">'+
+          '<div style="font-size:.875rem;font-weight:700;color:var(--gu-text)">'+ct.co+'</div>'+
+          '<div style="font-size:.73rem;color:var(--gu-text-muted);margin-top:.1rem">'+ct.debut+' → '+ct.fin+'</div>'+
+        '</div>'+
+        '<div style="text-align:center;min-width:80px">'+
+          '<div style="font-size:.7rem;font-weight:700;color:'+planColor+';margin-bottom:.2rem">'+ct.label+'</div>'+
+          '<div style="font-size:1rem;font-weight:800;color:var(--gu-text)">'+(ct.tarif>0?ct.tarif.toLocaleString('fr-FR')+' F':'Gratuit')+'</div>'+
+          '<div style="font-size:.7rem;color:var(--gu-text-muted)">'+(ct.tarif>0?'/mois':'30 jours')+'</div>'+
+        '</div>'+
+        '<span style="background:'+sCfg.bg+';color:'+sCfg.col+';padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:700;flex-shrink:0">'+sCfg.lbl+'</span>'+
+        (st==='trial'?'<button onclick="_setCompanyStatus(\''+ct.id+'\',\'active\')" style="padding:.35rem .875rem;border:none;border-radius:.5rem;background:#d1fae5;color:#065f46;font-size:.75rem;font-weight:700;cursor:pointer">Activer →</button>':'')+
+      '</div>';
+    }).join('')+
+    '</div>'+
+  '</div>';
+
+  cont.innerHTML=html;
+}
+
+// ── Paramètres plateforme ──────────────────────────────────────────────────
+function _adminParams(){
+  var cont=document.getElementById('gu-main-content'); if(!cont) return;
+  cont.innerHTML='<div style="background:linear-gradient(135deg,#1a0820,#0f0515);border-radius:1.25rem;padding:1.5rem 1.75rem;margin-bottom:1.125rem;border:1px solid rgba(239,68,68,.15)">'+
+    '<div style="font-size:1rem;font-weight:800;color:#fff">⚙️ Paramètres Plateforme</div>'+
+    '<div style="font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.2rem">Configuration globale de BusOps</div>'+
+  '</div>'+
+  '<div style="background:var(--gu-card);border-radius:1.125rem;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.07)">'+
+    '<div style="font-size:.875rem;font-weight:700;color:var(--gu-text);margin-bottom:1.25rem">💳 Tarifs d\'abonnement</div>'+
+    '<div style="display:flex;flex-direction:column;gap:.875rem">'+
+    [
+      {label:'Plan Premium Annuel',id:'tarif-premium',val:'15 000',desc:'Accès complet, multi-guichets, analytics avancés'},
+      {label:'Plan Standard Annuel',id:'tarif-standard',val:'10 000',desc:'Accès standard, 1 guichet, rapports de base'},
+      {label:'Essai Gratuit',id:'tarif-trial',val:'0',desc:'30 jours d\'accès complet, pas de CB requise'},
+    ].map(function(p){
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:.875rem 1rem;background:var(--gu-item-bg);border-radius:.75rem;border:1px solid var(--gu-item-border)">'+
+        '<div><div style="font-size:.875rem;font-weight:700;color:var(--gu-text)">'+p.label+'</div>'+
+        '<div style="font-size:.75rem;color:var(--gu-text-muted);margin-top:.15rem">'+p.desc+'</div></div>'+
+        '<div style="display:flex;align-items:center;gap:.5rem">'+
+          '<input id="'+p.id+'" value="'+p.val+'" style="width:80px;padding:.4rem .625rem;border:1.5px solid var(--gu-input-border);border-radius:.5rem;font-size:.875rem;font-weight:700;text-align:right;background:var(--gu-input-bg);color:var(--gu-text)">'+
+          '<span style="font-size:.8rem;color:var(--gu-text-muted)">FCFA/mois</span>'+
+        '</div>'+
+      '</div>';
+    }).join('')+
+    '</div>'+
+    '<button onclick="showToast('✅ Tarifs sauvegardés')" style="margin-top:1.25rem;padding:.75rem 1.5rem;background:#7C54DE;color:#fff;border:none;border-radius:.75rem;font-size:.875rem;font-weight:700;cursor:pointer">Sauvegarder les tarifs</button>'+
+  '</div>';
+}
+
 // ══ Fin Super Admin ═══════════════════════════════════════════════════════
 
 
